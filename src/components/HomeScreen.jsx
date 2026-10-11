@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { ChevronDown, Sparkles, Wallet } from 'lucide-react';
 import { apiService, MOCK_BEST_SELLERS } from '../services/api';
 
-import pizzaImg from '../assets/pizza.jpg';
+import figmaDetailPizza from '../assets/figma_detail_pizza.png';
 import shakeImg from '../assets/shake.jpg';
-import burgerImg from '../assets/burger.jpg';
+import burgerImg from '../assets/figma_item_alt.png';
 import figmaBanner from '../assets/figma_banner.png';
 
 export default function HomeScreen({ onSelectProduct }) {
@@ -162,7 +162,7 @@ export default function HomeScreen({ onSelectProduct }) {
             onSelectProduct({
               name: 'Pepperoni Supreme Pizza',
               price: 14.0,
-              image: pizzaImg,
+              image: figmaDetailPizza,
             })
           }
           style={{

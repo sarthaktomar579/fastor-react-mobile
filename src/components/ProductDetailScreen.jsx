@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import pizzaImg from '../assets/pizza.png';
+import figmaDetailPizza from '../assets/figma_detail_pizza.png';
 
 const PORTION_OPTIONS = [
   { id: 'p1', name: 'Personal (4 Slices)', price: 0.00 },
@@ -36,7 +36,7 @@ export default function ProductDetailScreen({ product, onBack, onAddToCart }) {
       {/* Top Hero Image with Curved Bottom (Figma Screen 4) */}
       <div style={{ position: 'relative', width: '100%', height: '280px' }}>
         <img
-          src={product?.image || pizzaImg}
+          src={product?.image || figmaDetailPizza}
           alt={product?.name || 'Food item'}
           style={{
             width: '100%',

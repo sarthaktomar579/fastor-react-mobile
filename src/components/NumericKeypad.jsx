@@ -1,5 +1,4 @@
 import React from 'react';
-import { Delete } from 'lucide-react';
 
 const KEY_DATA = [
   { num: '1', letters: '' },
@@ -28,8 +27,13 @@ export default function NumericKeypad({ onDigit, onDelete }) {
               className="keypad-key"
               onClick={onDelete}
               aria-label="Delete"
+              style={{ backgroundColor: 'transparent', boxShadow: 'none' }}
             >
-              <Delete size={20} color="#1E1F24" />
+              <svg width="22" height="18" viewBox="0 0 24 18" fill="none" stroke="#000000" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 2H7.5L1 9L7.5 16H21C21.5523 16 22 15.5523 22 15V3C22 2.44772 21.5523 2 21 2Z" />
+                <line x1="12" y1="6" x2="17" y2="12" />
+                <line x1="17" y1="6" x2="12" y2="12" />
+              </svg>
             </button>
           );
         }
@@ -45,7 +49,7 @@ export default function NumericKeypad({ onDigit, onDelete }) {
             className="keypad-key"
             onClick={() => onDigit(item.num)}
           >
-            <span>{item.num}</span>
+            <span style={{ fontSize: '22px', fontWeight: '400', lineHeight: '1.1' }}>{item.num}</span>
             {item.letters && <span className="keypad-letters">{item.letters}</span>}
           </button>
         );

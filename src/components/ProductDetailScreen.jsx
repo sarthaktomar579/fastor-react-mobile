@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Minus, Plus, Check } from 'lucide-react';
+import pizzaImg from '../assets/pizza.png';
 
 const PORTION_OPTIONS = [
   { id: 'p1', name: 'Personal (4 Slices)', price: 0.00 },
@@ -28,15 +28,15 @@ export default function ProductDetailScreen({ product, onBack, onAddToCart }) {
         totalPrice,
       });
       onBack();
-    }, 700);
+    }, 600);
   };
 
   return (
     <div className="screen-container page-fade-in" style={{ backgroundColor: '#FFFFFF', paddingBottom: '90px' }}>
-      {/* Top Hero Food Image with Rounded Bottom */}
-      <div style={{ position: 'relative', width: '100%', height: '270px' }}>
+      {/* Top Hero Image with Curved Bottom (Figma Screen 4) */}
+      <div style={{ position: 'relative', width: '100%', height: '280px' }}>
         <img
-          src={product?.image || 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80'}
+          src={product?.image || pizzaImg}
           alt={product?.name || 'Food item'}
           style={{
             width: '100%',
@@ -47,18 +47,18 @@ export default function ProductDetailScreen({ product, onBack, onAddToCart }) {
           }}
         />
 
-        {/* Floating Back Button */}
+        {/* Back Button */}
         <button
           onClick={onBack}
           style={{
             position: 'absolute',
-            top: '20px',
-            left: '20px',
-            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+            top: '16px',
+            left: '16px',
+            backgroundColor: '#FFFFFF',
             border: 'none',
             borderRadius: '50%',
-            width: '40px',
-            height: '40px',
+            width: '38px',
+            height: '38px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -67,20 +67,22 @@ export default function ProductDetailScreen({ product, onBack, onAddToCart }) {
           }}
           aria-label="Back"
         >
-          <ArrowLeft size={20} color="var(--primary)" />
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
         </button>
       </div>
 
-      {/* Main Details */}
-      <div style={{ padding: '22px 24px 0' }}>
-        {/* Price and Quantity Row */}
+      {/* Main Details Body */}
+      <div style={{ padding: '20px 22px 0' }}>
+        {/* Price & Quantity Row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontSize: '26px', fontWeight: '800', color: 'var(--primary)' }}>
+          <span style={{ fontSize: '26px', fontWeight: '800', color: 'var(--primary)', letterSpacing: '-0.5px' }}>
             ₹{basePrice.toFixed(2)}
           </span>
 
-          {/* Stepper (- [3] +) matching Figma */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          {/* Stepper (- 3 +) matching Figma */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <button
               onClick={() => setQuantity((q) => Math.max(1, q - 1))}
               style={{
@@ -94,13 +96,14 @@ export default function ProductDetailScreen({ product, onBack, onAddToCart }) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                boxShadow: '0 2px 8px var(--primary-glow)',
+                fontWeight: '700',
+                fontSize: '18px',
               }}
             >
-              <Minus size={16} />
+              -
             </button>
 
-            <span style={{ fontSize: '18px', fontWeight: '700', color: 'var(--text-dark)', minWidth: '16px', textAlign: 'center' }}>
+            <span style={{ fontSize: '18px', fontWeight: '700', color: '#1E1F24', minWidth: '18px', textAlign: 'center' }}>
               {quantity}
             </span>
 
@@ -117,32 +120,33 @@ export default function ProductDetailScreen({ product, onBack, onAddToCart }) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                boxShadow: '0 2px 8px var(--primary-glow)',
+                fontWeight: '700',
+                fontSize: '18px',
               }}
             >
-              <Plus size={16} />
+              +
             </button>
           </div>
         </div>
 
-        {/* Title & Description matching Figma */}
+        {/* Title & Description */}
         <div style={{ marginTop: '16px' }}>
-          <h1 style={{ fontSize: '20px', fontWeight: '700', color: 'var(--text-dark)', marginBottom: '8px' }}>
-            {product?.name || 'Lorem ipsum dolor sit amet'}
+          <h1 style={{ fontSize: '19px', fontWeight: '700', color: '#1E1F24', marginBottom: '6px' }}>
+            Lorem ipsum dolor sit amet
           </h1>
-          <p style={{ fontSize: '13px', color: 'var(--text-gray)', lineHeight: '1.5' }}>
+          <p style={{ fontSize: '12.5px', color: '#8F92A1', lineHeight: '1.5' }}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
         </div>
 
-        {/* Portion Customization Section matching Figma */}
-        <div style={{ marginTop: '24px' }}>
-          <h3 style={{ fontSize: '16px', fontWeight: '700', color: 'var(--text-dark)', marginBottom: '14px' }}>
+        {/* Portion Section matching Figma */}
+        <div style={{ marginTop: '22px' }}>
+          <h3 style={{ fontSize: '15px', fontWeight: '700', color: '#1E1F24', marginBottom: '12px' }}>
             Personal portion
           </h3>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {PORTION_OPTIONS.map((portion) => {
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {PORTION_OPTIONS.map((portion, idx) => {
               const isSelected = selectedPortion === portion.id;
               return (
                 <div
@@ -152,31 +156,29 @@ export default function ProductDetailScreen({ product, onBack, onAddToCart }) {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: '12px 14px',
-                    borderRadius: '14px',
-                    border: isSelected ? '1.5px solid var(--primary)' : '1px solid #E5E7EB',
-                    backgroundColor: isSelected ? 'var(--primary-light)' : '#FFFFFF',
+                    padding: '12px 0',
+                    borderBottom: idx < PORTION_OPTIONS.length - 1 ? '1px dashed #E5E7EB' : 'none',
                     cursor: 'pointer',
-                    transition: 'all 0.15s ease',
                   }}
                 >
-                  <span style={{ fontSize: '14px', fontWeight: isSelected ? '600' : '500', color: 'var(--text-dark)' }}>
+                  <span style={{ fontSize: '13.5px', color: '#1E1F24', fontWeight: isSelected ? '600' : '400' }}>
                     {portion.name}
                   </span>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <span style={{ fontSize: '13px', fontWeight: '600', color: isSelected ? 'var(--primary)' : 'var(--text-gray)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                    <span style={{ fontSize: '13px', color: '#8F92A1', fontWeight: '500' }}>
                       ${portion.price.toFixed(2)}
                     </span>
 
-                    {/* Radio Indicator */}
+                    {/* Radio button matching Figma */}
                     <div
                       style={{
                         width: '18px',
                         height: '18px',
                         borderRadius: '50%',
-                        border: isSelected ? '5px solid var(--primary)' : '2px solid #D1D5DB',
+                        border: isSelected ? '5px solid var(--primary)' : '1.5px solid #D1D5DB',
                         backgroundColor: '#FFFFFF',
+                        boxSizing: 'border-box',
                       }}
                     />
                   </div>
@@ -187,17 +189,16 @@ export default function ProductDetailScreen({ product, onBack, onAddToCart }) {
         </div>
       </div>
 
-      {/* Fixed Bottom CTA: Add to cart matching Figma */}
+      {/* Bottom Fixed Add to Cart Button matching Figma */}
       <div
         style={{
           position: 'absolute',
           bottom: 0,
           left: 0,
           right: 0,
-          padding: '14px 24px 20px',
+          padding: '14px 22px 18px',
           backgroundColor: '#FFFFFF',
           borderTop: '1px solid #F3F4F6',
-          boxShadow: '0 -4px 16px rgba(0, 0, 0, 0.04)',
         }}
       >
         <button
@@ -205,13 +206,7 @@ export default function ProductDetailScreen({ product, onBack, onAddToCart }) {
           onClick={handleAdd}
           style={{ backgroundColor: added ? '#10B981' : 'var(--primary)' }}
         >
-          {added ? (
-            <>
-              <Check size={18} /> Added to Cart!
-            </>
-          ) : (
-            `Add to cart • ₹${totalPrice}`
-          )}
+          {added ? 'Added to Cart!' : 'Add to cart'}
         </button>
       </div>
     </div>

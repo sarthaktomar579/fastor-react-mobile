@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Wifi, Battery, Signal } from 'lucide-react';
+import StatusBar from './components/StatusBar';
 import LoginScreen from './components/LoginScreen';
 import OtpScreen from './components/OtpScreen';
 import HomeScreen from './components/HomeScreen';
@@ -36,16 +36,8 @@ export default function App() {
 
   return (
     <div className="app-viewport">
-      {/* iOS Top Status Bar */}
-      <div className="phone-notch-bar">
-        <span>9:41</span>
-        <div className="notch-pill" />
-        <div className="notch-icons">
-          <Signal size={13} strokeWidth={2.5} />
-          <Wifi size={13} strokeWidth={2.5} />
-          <Battery size={15} strokeWidth={2.5} />
-        </div>
-      </div>
+      {/* iOS Top Status Bar (Matching Figma 9:41, Signal, WiFi, Battery) */}
+      <StatusBar />
 
       {/* Dynamic Screen View */}
       {screen === 'login' && <LoginScreen onOtpSent={handleOtpSent} />}

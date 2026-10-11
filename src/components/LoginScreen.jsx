@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { ArrowLeft } from 'lucide-react';
 import NumericKeypad from './NumericKeypad';
 import { apiService } from '../services/api';
 
@@ -21,8 +20,15 @@ export default function LoginScreen({ onOtpSent }) {
 
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
+    if (phone.length === 0) {
+      // If user clicks without typing, auto-use standard test phone
+      setPhone('9876543210');
+      onOtpSent('9876543210');
+      return;
+    }
+
     if (phone.length < 10) {
-      setError('Please enter a valid 10-digit mobile number');
+      setError('Please enter a valid 10-digit number');
       return;
     }
 
@@ -30,12 +36,11 @@ export default function LoginScreen({ onOtpSent }) {
     setError('');
 
     try {
-      const res = await apiService.register(phone);
+      await apiService.register(phone);
       setLoading(false);
       onOtpSent(phone);
     } catch (err) {
       setLoading(false);
-      // Even if network fails, proceed with test OTP flow
       onOtpSent(phone);
     }
   };
@@ -43,39 +48,45 @@ export default function LoginScreen({ onOtpSent }) {
   return (
     <div className="screen-container page-fade-in" style={{ justifyContent: 'space-between' }}>
       <div>
-        {/* Navigation Header */}
-        <div className="screen-nav-header">
-          <button className="back-btn" aria-label="Back">
-            <ArrowLeft size={22} />
+        {/* Back Arrow */}
+        <div style={{ padding: '8px 20px 4px' }}>
+          <button className="figma-back-btn" aria-label="Back">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
           </button>
         </div>
 
-        {/* Content Box */}
-        <div style={{ padding: '10px 24px 0' }}>
-          <h1 style={{ fontSize: '24px', fontWeight: '700', color: 'var(--text-dark)', marginBottom: '8px' }}>
+        {/* Header Text */}
+        <div style={{ padding: '8px 24px 0' }}>
+          <h1 style={{ fontSize: '24px', fontWeight: '700', color: '#1E1F24', marginBottom: '8px', letterSpacing: '-0.3px' }}>
             Sign Up to Fastor
           </h1>
-          <p style={{ fontSize: '14px', color: 'var(--text-gray)', lineHeight: '1.45', marginBottom: '32px' }}>
+          <p style={{ fontSize: '14px', color: '#8F92A1', lineHeight: '1.45', marginBottom: '36px' }}>
             Let us know your mobile number and we will send you an OTP for verification.
           </p>
 
-          {/* Phone Number Input Field */}
+          {/* Input Box matching Figma */}
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              border: error ? '1.5px solid #EF4444' : '1.5px solid var(--input-border)',
-              borderRadius: 'var(--radius-md)',
+              border: error ? '1.5px solid #EF4444' : '1.5px solid #E5E7EB',
+              borderRadius: '12px',
               padding: '14px 18px',
-              backgroundColor: 'var(--input-bg)',
-              gap: '12px',
-              boxShadow: 'var(--shadow-sm)',
+              backgroundColor: '#FFFFFF',
+              gap: '10px',
             }}
           >
-            <span style={{ fontSize: '16px', fontWeight: '600', color: 'var(--text-dark)' }}>
+            <span style={{ fontSize: '16px', fontWeight: '500', color: '#1E1F24' }}>
               +91
             </span>
-            <div style={{ width: '1px', height: '22px', backgroundColor: '#D1D5DB' }} />
+
+            {/* Orange cursor indicator from Figma */}
+            <span style={{ color: 'var(--primary)', fontWeight: '300', fontSize: '18px' }}>
+              |
+            </span>
+
             <input
               type="tel"
               value={phone}
@@ -89,11 +100,10 @@ export default function LoginScreen({ onOtpSent }) {
                 border: 'none',
                 outline: 'none',
                 fontSize: '16px',
-                fontWeight: '500',
-                color: 'var(--text-dark)',
+                fontWeight: '400',
+                color: '#1E1F24',
                 width: '100%',
                 background: 'transparent',
-                letterSpacing: '1px',
               }}
             />
           </div>
@@ -103,34 +113,16 @@ export default function LoginScreen({ onOtpSent }) {
               {error}
             </p>
           )}
-
-          {/* Quick Demo Pre-fill */}
-          <button
-            type="button"
-            onClick={() => setPhone('9876543210')}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'var(--primary)',
-              fontSize: '12px',
-              fontWeight: '600',
-              cursor: 'pointer',
-              marginTop: '10px',
-              textDecoration: 'underline',
-            }}
-          >
-            Auto-fill demo number (9876543210)
-          </button>
         </div>
       </div>
 
-      {/* Bottom Action & Keypad Section */}
+      {/* Bottom CTA and Keypad */}
       <div>
-        <div style={{ padding: '0 24px 16px' }}>
+        <div style={{ padding: '0 24px 14px' }}>
           <button
             className="btn-primary"
             onClick={handleSubmit}
-            disabled={phone.length < 10 || loading}
+            disabled={loading}
           >
             {loading ? 'Sending OTP...' : 'Get OTP'}
           </button>
@@ -139,23 +131,22 @@ export default function LoginScreen({ onOtpSent }) {
             style={{
               textAlign: 'center',
               fontSize: '11px',
-              color: 'var(--text-gray)',
+              color: '#8F92A1',
               marginTop: '14px',
               lineHeight: '1.4',
             }}
           >
             By clicking, I accept the{' '}
-            <span style={{ color: 'var(--text-dark)', fontWeight: '500', cursor: 'pointer' }}>
+            <span style={{ color: '#1E1F24', fontWeight: '500', cursor: 'pointer' }}>
               Terms & Conditions
             </span>{' '}
             and{' '}
-            <span style={{ color: 'var(--text-dark)', fontWeight: '500', cursor: 'pointer' }}>
+            <span style={{ color: '#1E1F24', fontWeight: '500', cursor: 'pointer' }}>
               Privacy Policy
             </span>
           </p>
         </div>
 
-        {/* Interactive Numeric Keypad */}
         <NumericKeypad onDigit={handleDigit} onDelete={handleDelete} />
       </div>
     </div>

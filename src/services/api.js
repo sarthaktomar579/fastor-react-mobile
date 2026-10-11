@@ -35,7 +35,7 @@ async function callApi(path, options = {}) {
   for (const url of urls) {
     try {
       const controller = new AbortController();
-      const id = setTimeout(() => controller.abort(), 4000);
+      const id = setTimeout(() => controller.abort(), 1200);
       const res = await fetch(url, { ...options, signal: controller.signal });
       clearTimeout(id);
       if (res.ok) {

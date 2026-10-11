@@ -35,14 +35,13 @@ export default function LoginScreen({ onOtpSent }) {
     setLoading(true);
     setError('');
 
-    try {
-      await apiService.register(phone);
+    // Fire registration API in background to avoid blocking on slow staging server
+    apiService.register(phone).catch(() => {});
+
+    setTimeout(() => {
       setLoading(false);
       onOtpSent(phone);
-    } catch (err) {
-      setLoading(false);
-      onOtpSent(phone);
-    }
+    }, 180);
   };
 
   return (

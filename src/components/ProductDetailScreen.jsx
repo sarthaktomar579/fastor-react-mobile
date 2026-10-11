@@ -77,9 +77,16 @@ export default function ProductDetailScreen({ product, onBack, onAddToCart }) {
       <div style={{ padding: '20px 22px 0' }}>
         {/* Price & Quantity Row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontSize: '26px', fontWeight: '800', color: 'var(--primary)', letterSpacing: '-0.5px' }}>
-            ₹{basePrice.toFixed(2)}
-          </span>
+          <div>
+            <span style={{ fontSize: '26px', fontWeight: '800', color: 'var(--primary)', letterSpacing: '-0.5px' }}>
+              ₹{totalPrice}
+            </span>
+            {quantity > 1 && (
+              <span style={{ fontSize: '12px', color: '#8F92A1', marginLeft: '8px', fontWeight: '500' }}>
+                (₹{(basePrice + portionExtra).toFixed(2)} × {quantity})
+              </span>
+            )}
+          </div>
 
           {/* Stepper (- 3 +) matching Figma */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -206,7 +213,7 @@ export default function ProductDetailScreen({ product, onBack, onAddToCart }) {
           onClick={handleAdd}
           style={{ backgroundColor: added ? '#10B981' : 'var(--primary)' }}
         >
-          {added ? 'Added to Cart!' : 'Add to cart'}
+          {added ? 'Added to Cart!' : `Add to cart • ₹${totalPrice}`}
         </button>
       </div>
     </div>

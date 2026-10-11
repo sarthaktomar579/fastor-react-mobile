@@ -107,11 +107,10 @@ export default function HomeScreen({ onSelectProduct }) {
 
         <div
           style={{
-            display: 'flex',
-            gap: '10px',
-            overflowX: 'auto',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: '8px',
             padding: '2px 18px',
-            scrollbarWidth: 'none',
           }}
         >
           {MOCK_BEST_SELLERS.map((item) => (
@@ -119,8 +118,8 @@ export default function HomeScreen({ onSelectProduct }) {
               key={item.id}
               onClick={() => onSelectProduct(item)}
               style={{
-                flex: '0 0 78px',
-                height: '104px',
+                width: '100%',
+                aspectRatio: '72 / 98',
                 borderRadius: '14px',
                 overflow: 'hidden',
                 position: 'relative',
@@ -178,6 +177,46 @@ export default function HomeScreen({ onSelectProduct }) {
             alt="30% OFF Special Dish"
             style={{ width: '100%', height: 'auto', display: 'block' }}
           />
+
+          {/* Authentic text overlay matching Figma Screen 3 */}
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              bottom: 0,
+              width: '52%',
+              padding: '14px 14px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              pointerEvents: 'none',
+              zIndex: 2,
+            }}
+          >
+            <p
+              style={{
+                fontSize: '12px',
+                fontWeight: '500',
+                color: '#FFFFFF',
+                lineHeight: '1.25',
+                margin: 0,
+              }}
+            >
+              Experience our<br />delicious new dish
+            </p>
+            <h3
+              style={{
+                fontSize: '24px',
+                fontWeight: '800',
+                color: '#FFFFFF',
+                margin: '6px 0 0 0',
+                letterSpacing: '-0.5px',
+              }}
+            >
+              30% OFF
+            </h3>
+          </div>
         </div>
 
         {/* 4 Pagination dots from Figma */}
